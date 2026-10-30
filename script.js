@@ -1,5 +1,5 @@
 /* ============================================
-   HARRINGTON & VALE — JAVASCRIPT
+   HARRINGTON & VALE - JAVASCRIPT
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -24,33 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // ---- Mobile Hamburger Menu ----
     const hamburger = document.getElementById('hamburger');
     const mainNav = document.getElementById('mainNav');
-    let scrollPositionBeforeMenu = 0;
-
-    function lockBodyScroll() {
-        scrollPositionBeforeMenu = window.scrollY;
-        document.body.style.position = 'fixed';
-        document.body.style.top = '-' + scrollPositionBeforeMenu + 'px';
-        document.body.style.left = '0';
-        document.body.style.right = '0';
-    }
-
-    function unlockBodyScroll() {
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        window.scrollTo(0, scrollPositionBeforeMenu);
-    }
 
     hamburger.addEventListener('click', function() {
         const isOpen = mainNav.classList.toggle('open');
         hamburger.classList.toggle('active');
         hamburger.setAttribute('aria-expanded', isOpen);
-        if (isOpen) {
-            lockBodyScroll();
-        } else {
-            unlockBodyScroll();
-        }
+        document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
     // Close mobile menu on nav link click
@@ -59,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mainNav.classList.remove('open');
             hamburger.classList.remove('active');
             hamburger.setAttribute('aria-expanded', 'false');
-            unlockBodyScroll();
+            document.body.style.overflow = '';
         });
     });
 
@@ -99,48 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
     staggerReveal('.matters-list', '.matter', 0.1);
     staggerReveal('.insights-grid', '.insight-card', 0.1);
     staggerReveal('.offices-grid', '.office', 0.1);
-
-    // ---- Testimonials Slider ----
-    const testimonials = document.querySelectorAll('.testimonial');
-    const dots = document.querySelectorAll('.testimonial-dot');
-    let currentTestimonial = 0;
-    let testimonialInterval;
-
-    function showTestimonial(index) {
-        testimonials.forEach(function(t, i) {
-            t.classList.remove('active');
-            dots[i].classList.remove('active');
-        });
-        testimonials[index].classList.add('active');
-        dots[index].classList.add('active');
-        currentTestimonial = index;
-    }
-
-    function nextTestimonial() {
-        const next = (currentTestimonial + 1) % testimonials.length;
-        showTestimonial(next);
-    }
-
-    function startTestimonialAutoplay() {
-        testimonialInterval = setInterval(nextTestimonial, 6000);
-    }
-
-    function stopTestimonialAutoplay() {
-        clearInterval(testimonialInterval);
-    }
-
-    dots.forEach(function(dot) {
-        dot.addEventListener('click', function() {
-            const index = parseInt(this.getAttribute('data-index'));
-            showTestimonial(index);
-            stopTestimonialAutoplay();
-            startTestimonialAutoplay();
-        });
-    });
-
-    if (testimonials.length > 0) {
-        startTestimonialAutoplay();
-    }
 
     // ---- Smooth Scroll for Anchor Links ----
     document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
@@ -251,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         throw new Error('Network response was not ok');
                     }
                     submitBtn.textContent = 'Request Submitted';
-                    showStatus('Thank you — your request has been received. A member of our team will be in touch shortly.', 'success');
+                    showStatus('Thank you. Your request has been received. A member of our team will be in touch shortly.', 'success');
                     form.reset();
                     setTimeout(function() {
                         submitBtn.textContent = originalText;
@@ -281,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: 'Navigating Complex Commercial Agreements',
             body: [
                 'Commercial agreements increasingly need to balance two competing pressures: the desire for firm, enforceable commitments and the reality that commercial relationships evolve. Getting that balance right starts long before a contract is drafted, in how the parties define what success actually looks like.',
-                'The strongest agreements are built around clear allocation of risk. Rather than attempting to anticipate every contingency, well-drafted agreements establish principles for how unanticipated issues should be resolved — who bears the cost of delay, how disputes are escalated, and under what circumstances a party may step away.',
+                'The strongest agreements are built around clear allocation of risk. Rather than attempting to anticipate every contingency, well-drafted agreements establish principles for how unanticipated issues should be resolved: who bears the cost of delay, how disputes are escalated, and under what circumstances a party may step away.',
                 'Regulatory change is also reshaping how agreements are structured. Clients operating across borders need contracts that remain enforceable as local rules shift, which increasingly means building in periodic review mechanisms rather than treating a signed agreement as a fixed, static document.',
                 'Ultimately, the objective is not simply a contract that survives legal scrutiny, but one that supports the commercial relationship it is meant to protect.'
             ]
@@ -301,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: 'Protecting Intellectual Property in a Digital Economy',
             body: [
                 'As business models increasingly depend on data, software, and digital platforms, intellectual property strategy has moved from a legal afterthought to a core commercial consideration. The assets most in need of protection are often intangible, and the threats they face evolve faster than traditional filing strategies can keep pace with.',
-                'Effective IP strategy today combines classic tools — patents, trademarks, and carefully drafted licensing terms — with a clear-eyed view of how a business actually creates value. That means understanding which innovations are genuinely defensible, and which are better protected through trade secret practices, contractual terms, and internal controls.',
+                'Effective IP strategy today combines classic tools: patents, trademarks, and carefully drafted licensing terms, with a clear-eyed view of how a business actually creates value. That means understanding which innovations are genuinely defensible, and which are better protected through trade secret practices, contractual terms, and internal controls.',
                 'Enforcement, too, looks different across borders and platforms. A strategy that works in one jurisdiction may offer little practical protection in another, which makes coordinated, multi-jurisdictional planning essential for any business operating at scale.',
                 'The businesses that treat IP as a strategic asset, rather than a defensive filing exercise, are generally the ones best positioned to capture the value of their own innovation.'
             ]
@@ -312,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body: [
                 'When a commercial relationship breaks down, the instinct is often to focus immediately on legal merit. In practice, the more consequential early decisions are strategic: what outcome actually serves the client\'s interests, and what path is most likely to achieve it with the least commercial disruption.',
                 'Litigation risk is rarely just about the strength of a claim. Cost, timeline, reputational exposure, and the ongoing commercial relationship between the parties all factor into whether litigation, arbitration, or a negotiated resolution is the right approach.',
-                'Alternative dispute resolution mechanisms have become increasingly central to this calculus, offering greater confidentiality and, often, a faster path to resolution than court proceedings — though they are not the right tool for every dispute.',
+                'Alternative dispute resolution mechanisms have become increasingly central to this calculus, offering greater confidentiality and, often, a faster path to resolution than court proceedings, though they are not the right tool for every dispute.',
                 'The disputes handled most effectively are typically those where legal strategy and commercial judgment are treated as inseparable from the outset, rather than sequential considerations.'
             ]
         }
@@ -336,14 +273,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }).join('');
 
         articleModal.hidden = false;
-        lockBodyScroll();
+        document.body.style.overflow = 'hidden';
         articleModal.querySelector('.article-modal-close').focus();
     }
 
     function closeArticleModal() {
         if (!articleModal) return;
         articleModal.hidden = true;
-        unlockBodyScroll();
+        document.body.style.overflow = '';
         if (lastFocusedElement) lastFocusedElement.focus();
     }
 
